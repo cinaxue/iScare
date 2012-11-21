@@ -8,7 +8,11 @@
 
 #import "AppDelegate.h"
 
-#import "ViewController.h"
+#import "DrawingViewController.h"
+#import "UserInfoViewController.h"
+#import "iScareListViewController.h"
+#import "FollowUPViewController.h"
+
 
 @implementation AppDelegate
 
@@ -23,8 +27,31 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
-    self.window.rootViewController = self.viewController;
+    DrawingViewController *drawingViewController = [[[DrawingViewController alloc] initWithNibName:@"DrawingViewController" bundle:nil] autorelease];
+    
+    UINavigationController *navigationController = [[[UINavigationController alloc] initWithRootViewController:drawingViewController] autorelease];
+    
+    UserInfoViewController *userInfoViewController = [[[UserInfoViewController alloc] initWithNibName:@"UserInfoViewController" bundle:nil] autorelease];
+    
+    UINavigationController *navigationController1 = [[[UINavigationController alloc] initWithRootViewController:userInfoViewController] autorelease];
+    
+    iScareListViewController *iscareListViewController = [[[iScareListViewController alloc] initWithNibName:@"iScareListViewController" bundle:nil] autorelease];
+    
+    UINavigationController *navigationController2 = [[[UINavigationController alloc] initWithRootViewController:iscareListViewController] autorelease];
+
+    FollowUPViewController *followUPViewController = [[[FollowUPViewController alloc] initWithNibName:@"FollowUPViewController" bundle:nil] autorelease];
+    
+    UINavigationController *navigationController3 = [[[UINavigationController alloc] initWithRootViewController:followUPViewController] autorelease];
+
+    drawingViewController.title = @"iScare";
+    userInfoViewController.title= @"Settings";
+    iscareListViewController.title= @"Top keep-fitter";
+    followUPViewController.title= @"Analyse";
+
+    UITabBarController *metalTabbar =[[[UITabBarController alloc] init] autorelease];
+    metalTabbar.viewControllers = [NSArray arrayWithObjects:navigationController,navigationController2,navigationController3, navigationController1,nil];
+    
+    self.window.rootViewController = metalTabbar;
     [self.window makeKeyAndVisible];
     return YES;
 }
